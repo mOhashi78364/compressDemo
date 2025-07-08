@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画像圧縮デモ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1em;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1em;
+      border: 1px solid #ccc;
+    }
+    .file-info {
+      margin-top: 0.5em;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>画像の圧縮率デモ</h1>
+  <label for="imageSelect">画像の形式を選択:</label>
+  <select id="imageSelect">
+    <option value="images/original.bmp">オリジナル (BMP)</option>
+    <option value="images/pngConvert.png">PNG</option>
+    <option value="images/jpegConvert85.jpeg">JPEG 高品質 (85)</option>
+    <option value="images/jpegConvert50.jpeg">JPEG 中品質 (50)</option>
+    <option value="images/jpegConvert20.jpeg">JPEG 低品質 (20)</option>
+  </select>
+
+  <img id="imageDisplay" src="images/original.bmp" alt="表示中の画像">
+  <div class="file-info" id="fileSizeInfo">ファイルサイズ: 計算中...</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const imageSelect = document.getElementById('imageSelect');
+      const imageDisplay = document.getElementById('imageDisplay');
+      const fileSizeInfo = document.getElementById('fileSizeInfo');
+
+      const fileSizes = {
+        "images/original.bmp": "512.00 KB",
+        "images/pngConvert.png": "256.00 KB",
+        "images/jpegConvert85.jpeg": "128.00 KB",
+        "images/jpegConvert50.jpeg": "64.00 KB",
+        "images/jpegConvert20.jpeg": "32.00 KB"
+      };
+
+      function updateImage() {
+        const selectedImage = imageSelect.value;
+        imageDisplay.src = selectedImage;
+        const sizeText = fileSizes[selectedImage] || "不明";
+        fileSizeInfo.textContent = `ファイルサイズ: ${sizeText}`;
+      }
+
+      imageSelect.addEventListener('change', updateImage);
+      updateImage();
+    });
+  </script>
+</body>
+</html>
