@@ -5,19 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>画像圧縮デモ</title>
   <style>
-    body {
-      font-family: sans-serif;
-      padding: 1em;
+    :root {
+      --accent-color: #046EB8;
+      --sub-color: #C6E5F9;
+      --text-color: #333333;
     }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 1.5em;
+      background-color: #f9f9f9;
+      color: var(--text-color);
+    }
+
+    h1 {
+      color: var(--accent-color);
+      font-size: 1.6em;
+      margin-bottom: 1em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+
+    select {
+      padding: 0.5em;
+      border: 1px solid var(--accent-color);
+      border-radius: 5px;
+      background-color: var(--sub-color);
+      color: var(--text-color);
+      font-size: 1em;
+    }
+
     img {
       max-width: 100%;
       height: auto;
       margin-top: 1em;
-      border: 1px solid #ccc;
+      border: 2px solid var(--accent-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
+
     .file-info {
       margin-top: 0.5em;
-      font-size: 0.9em;
+      font-size: 0.95em;
+      color: var(--text-color);
     }
   </style>
 </head>
@@ -25,11 +59,11 @@
   <h1>画像の圧縮率デモ</h1>
   <label for="imageSelect">画像の形式を選択:</label>
   <select id="imageSelect">
-    <option value="images/original.bmp">オリジナル (BMP)</option>
-    <option value="images/pngConvert.png">PNG</option>
-    <option value="images/jpegConvert85.jpeg">JPEG 高品質 (85)</option>
-    <option value="images/jpegConvert50.jpeg">JPEG 中品質 (50)</option>
-    <option value="images/jpegConvert20.jpeg">JPEG 低品質 (20)</option>
+    <option value="images/original.bmp">オリジナル (無圧縮)</option>
+    <option value="images/pngConvert.png">PNG (可逆圧縮)</option>
+    <option value="images/jpegConvert85.jpeg">JPEG (非可逆圧縮) 高品質 (85)</option>
+    <option value="images/jpegConvert50.jpeg">JPEG (非可逆圧縮) 中品質 (50)</option>
+    <option value="images/jpegConvert20.jpeg">JPEG (非可逆圧縮) 低品質 (20)</option>
   </select>
 
   <img id="imageDisplay" src="images/original.bmp" alt="表示中の画像">
@@ -42,11 +76,11 @@
       const fileSizeInfo = document.getElementById('fileSizeInfo');
 
       const fileSizes = {
-        "images/original.bmp": "512.00 KB",
-        "images/pngConvert.png": "256.00 KB",
-        "images/jpegConvert85.jpeg": "128.00 KB",
-        "images/jpegConvert50.jpeg": "64.00 KB",
-        "images/jpegConvert20.jpeg": "32.00 KB"
+        "images/original.bmp": "271 KB",
+        "images/pngConvert.png": "66 KB",
+        "images/jpegConvert85.jpeg": "33 KB",
+        "images/jpegConvert50.jpeg": "16 KB",
+        "images/jpegConvert20.jpeg": "9 KB"
       };
 
       function updateImage() {
